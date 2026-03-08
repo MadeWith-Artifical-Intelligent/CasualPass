@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Snake Game</title>
+    <link rel="stylesheet" href="../shared-settings.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="../shared-settings.js"></script>
+</head>
+
+<body class="theme-liquid">
+    <!-- Dynamic Background via Shared Settings -->
+    <div id="global-bg-container" class="background-container"></div>
+
+    <a href="../index.html" class="back-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Games</span>
+    </a>
+
+    <main class="game-container">
+        <header>
+            <h1 class="glow-text">Snake</h1>
+            <div class="scores" id="scores">
+                <div class="score-card">
+                    <span class="player-label">Score</span>
+                    <span class="score-value" id="score">0</span>
+                </div>
+                <div class="score-card personal-best">
+                    <span class="player-label">High Score</span>
+                    <span class="score-value" id="high-score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Configuration Menu (shown before start) -->
+        <div id="config-menu" class="config-menu">
+            <h2>Oyun Ayarları</h2>
+
+            <div class="preset-buttons">
+                <button class="preset-btn" data-preset="kolay">Kolay</button>
+                <button class="preset-btn active" data-preset="normal">Normal</button>
+                <button class="preset-btn" data-preset="zor">Zor</button>
+                <button class="preset-btn" data-preset="asiri-zor">Aşırı Zor</button>
+            </div>
+
+            <div class="custom-settings">
+                <div class="setting-row">
+                    <label for="grid-size">Grid Boyutu: <span id="grid-val">20x20</span></label>
+                    <input type="range" id="grid-size" min="10" max="40" step="5" value="20">
+                </div>
+
+                <div class="setting-row">
+                    <label for="speed-val">Hız (FPS): <span id="speed-display">12</span></label>
+                    <input type="range" id="speed-val" min="5" max="30" step="1" value="12">
+                </div>
+
+                <div class="setting-row toggle-row">
+                    <label for="wall-death">Duvara Çarpınca Öl</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="wall-death" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <button class="btn start-btn" id="start-game-btn">
+                <span class="btn-text">Oyuna Başla</span>
+            </button>
+        </div>
+
+        <div class="board-wrapper hidden" id="board-wrapper">
+            <canvas id="game-canv" width="400" height="400"></canvas>
+
+            <!-- Game Over Overlay -->
+            <div id="game-over-overlay" class="overlay hidden">
+                <h2 class="game-over-text">Oyun Bitti</h2>
+                <button class="btn reset-btn" id="restart-btn">
+                    <span class="btn-text">Tekrar Oyna</span>
+                </button>
+                <button class="btn text-btn" id="back-to-menu-btn"
+                    style="margin-top: 10px; background: transparent; border: none; font-size: 0.9rem;">
+                    Ayarlara Dön
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Controls (hidden on desktop via css) -->
+        <div class="mobile-controls">
+            <button class="d-pad up" data-dir="UP">▲</button>
+            <div class="d-pad-middle">
+                <button class="d-pad left" data-dir="LEFT">◀</button>
+                <div class="d-pad-center"></div>
+                <button class="d-pad right" data-dir="RIGHT">▶</button>
+            </div>
+            <button class="d-pad down" data-dir="DOWN">▼</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- Audio assets to be used globally -->
+    <audio id="global-click-sound" src="https://cdn.freesound.org/previews/415/415096_7413867-lq.mp3"
+        preload="auto"></audio>
+    <audio id="global-eat-sound" src="https://cdn.freesound.org/previews/242/242501_4414128-lq.mp3"
+        preload="auto"></audio>
+    <audio id="global-die-sound" src="https://cdn.freesound.org/previews/382/382310_6687700-lq.mp3"
+        preload="auto"></audio>
+</body>
+
+</html>

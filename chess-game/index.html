@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Chess Game</title>
+
+    <!-- Load Global Settings First -->
+    <link rel="stylesheet" href="../shared-settings.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Local Game Styling -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Load chess.js Logic Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+    <!-- Global Setting Script -->
+    <script src="../shared-settings.js"></script>
+</head>
+
+<body>
+    <!-- Global Dynamic Background -->
+    <div id="global-bg-container" class="background-container"></div>
+
+    <!-- Global Menu Navigation -->
+    <a href="../index.html" class="back-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Menüye Dön
+    </a>
+
+    <!-- Main Game Container -->
+    <div class="game-container">
+        <!-- Header -->
+        <header>
+            <h1 class="glow-text">CHESS</h1>
+        </header>
+
+        <!-- Pre-Game Lobby Overlay -->
+        <div id="lobby-menu" class="config-menu">
+            <h2>GAME SETUP</h2>
+
+            <div class="custom-settings">
+                <div class="setting-row">
+                    <label>Opponent Type</label>
+                    <div class="preset-buttons" id="opponent-selector">
+                        <button class="preset-btn active" data-opponent="ai">CasualFish (Bot)</button>
+                        <button class="preset-btn" data-opponent="local">Lokal (1v1)</button>
+                    </div>
+                </div>
+
+                <div class="setting-row" id="difficulty-wrapper">
+                    <label>CasualFish Difficulty</label>
+                    <input type="range" id="bot-difficulty" min="1" max="3" value="2" step="1">
+                    <div
+                        style="display: flex; justify-content: space-between; padding: 0 10px; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">
+                        <span>Kolay</span>
+                        <span>Orta</span>
+                        <span>Zor</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="start-game-btn" class="btn">OYUNA BAŞLA</button>
+        </div>
+
+        <!-- Player Turn Status Information -->
+        <div class="status-panel">
+            <div id="status-display" class="status-display turn-white">Sıra: Beyaz (White)</div>
+        </div>
+
+        <!-- The Chess Board Container -->
+        <div class="board-wrapper">
+            <div id="chessboard" class="chessboard">
+                <!-- Javascript will inject 64 grid cells here -->
+            </div>
+
+            <!-- Game Over Overlay Modal -->
+            <div id="game-over-overlay" class="overlay hidden" style="z-index: 100;">
+                <h2 id="game-over-text" class="game-over-text">ŞAH MAT</h2>
+                <button id="reset-btn" class="btn">Lobiye Dön</button>
+            </div>
+        </div>
+
+        <!-- Captured Pieces / Logs / Extras -->
+        <div class="hud-panel">
+            <button id="resign-btn" class="secondary-btn">Oyundan Çekil</button>
+        </div>
+    </div>
+
+    <!-- Game Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>

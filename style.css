@@ -1,0 +1,389 @@
+/* Base styling for the dashboard, leverages global CSS variables from shared-settings.js/css */
+@import url('shared-settings.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--cp-text);
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.5s ease;
+}
+
+/* Navigation */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: relative;
+    z-index: 20;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--cp-text);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logo span {
+    color: var(--cp-accent);
+}
+
+.icon-btn {
+    background: var(--cp-glass-bg);
+    border: 1px solid var(--cp-glass-border);
+    backdrop-filter: blur(8px);
+    color: var(--cp-text);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.icon-btn:hover {
+    background: var(--cp-glass-highlight);
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Dashboard Layout */
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+    position: relative;
+    z-index: 10;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, var(--cp-text), var(--cp-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--cp-text-muted);
+}
+
+/* Game Grid */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    text-decoration: none;
+    background: var(--cp-glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--cp-glass-border);
+    border-top: 1px solid var(--cp-glass-highlight);
+    border-radius: 24px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--cp-text);
+    box-shadow: var(--cp-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+}
+
+.game-card.unreleased {
+    opacity: 0.6;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+.game-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--cp-accent);
+}
+
+.game-card:hover::before {
+    left: 200%;
+}
+
+.game-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--cp-glass-bg);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--cp-glass-border);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.game-icon .x {
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    margin-right: -10px;
+    transform: translateY(-5px);
+}
+
+.game-icon .o {
+    color: #ff00cc;
+    text-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
+    transform: translateY(5px);
+}
+
+.game-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.game-info p {
+    color: var(--cp-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Modal Settings */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--cp-glass-base);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--cp-glass-border);
+    border-radius: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--cp-glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.modal-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--cp-glass-bg);
+    border-radius: 16px;
+    border: 1px solid var(--cp-glass-border);
+}
+
+.setting-item.column {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.setting-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.setting-info p {
+    font-size: 0.85rem;
+    color: var(--cp-text-muted);
+}
+
+/* Custom Toggle Switch */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--cp-glass-bg);
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid var(--cp-glass-border);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.slider {
+    background-color: var(--cp-accent);
+}
+
+input:checked+.slider:before {
+    transform: translateX(28px);
+}
+
+/* Theme Selector */
+.theme-options {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.theme-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.theme-preview {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.theme-option.selected .theme-preview {
+    border-color: var(--cp-accent);
+    box-shadow: 0 0 15px var(--cp-accent-glow);
+    transform: scale(1.05);
+}
+
+.theme-preview.liquid {
+    background: #0f111a;
+}
+
+.theme-preview.liquid .blob-mini {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+    filter: blur(10px);
+}
+
+.theme-preview.paper {
+    background: #f8f9fa;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+.theme-preview.neon {
+    background: #000;
+    box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.5);
+    border: 1px solid #00f2fe;
+}
+
+.theme-option span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .theme-options {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasualPass Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Shared settings script loaded first to apply backgrounds immediately -->
+    <script src="shared-settings.js"></script>
+</head>
+
+<body class="theme-liquid">
+
+    <!-- Dynamic Background via Shared Settings -->
+    <div id="global-bg-container" class="background-container">
+        <!-- Blobs will be injected here if theme requires it -->
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="logo">Casual<span>Pass</span></div>
+        <button id="settings-btn" class="icon-btn" aria-label="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard">
+        <header class="hero">
+            <h1 class="hero-title">Select a Game</h1>
+            <p class="hero-subtitle">Choose your next challenge</p>
+        </header>
+
+        <section class="game-grid">
+            <!-- Game Card: Tic Tac Toe -->
+            <a href="xox-game/index.html" class="game-card">
+                <div class="game-icon">
+                    <span class="x">X</span>
+                    <span class="o">O</span>
+                </div>
+                <div class="game-info">
+                    <h2>Tic Tac Toe</h2>
+                    <p>Classic strategy game for two players.</p>
+                </div>
+            </a>
+
+            <!-- Game Card: Snake -->
+            <a href="snake-game/index.html" class="game-card">
+                <div class="game-icon" style="color: #00ffcc; text-shadow: 0 0 10px rgba(0,255,204,0.5);">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 4c-5.5 0-9 4.5-9 9s3.5 9 9 9 9-4.5 9-9c0-3.3-1.6-6-4.3-7.5" />
+                        <path d="M13.5 4h.01" />
+                        <circle cx="16.5" cy="5.5" r=".5" fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="game-info">
+                    <h2>Snake</h2>
+                    <p>Classic arcade slithering action.</p>
+                </div>
+            </a>
+
+            <!-- Game Card: Chess -->
+            <a href="chess-game/index.html" class="game-card">
+                <div class="game-icon" style="color: #ff99cc; text-shadow: 0 0 10px rgba(255,153,204,0.5);">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 22h16"></path>
+                        <path d="M5 18h14v4H5z"></path>
+                        <path d="M6 14h12v4H6z"></path>
+                        <path d="M8 10h8v4H8z"></path>
+                        <path d="M12 2v8"></path>
+                        <path d="M8 6h8"></path>
+                        <path d="M10 2h4"></path>
+                    </svg>
+                </div>
+                <div class="game-info">
+                    <h2>Şah-Mat (Chess)</h2>
+                    <p>The timeless game of Kings & Queens.</p>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Global Settings</h2>
+                <button id="close-settings" class="icon-btn" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Sound</h3>
+                        <p>Enable game sound effects</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="setting-sound">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Visual Effects</h3>
+                        <p>Enable animations and particles</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="setting-effects">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item column">
+                    <div class="setting-info">
+                        <h3>Background Theme</h3>
+                        <p>Applies to dashboard and all games</p>
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option" data-theme="liquid">
+                            <div class="theme-preview liquid">
+                                <div class="blob-mini"></div>
+                            </div>
+                            <span>Liquid Glass</span>
+                        </div>
+                        <div class="theme-option" data-theme="paper">
+                            <div class="theme-preview paper"></div>
+                            <span>Paper</span>
+                        </div>
+                        <div class="theme-option" data-theme="neon">
+                            <div class="theme-preview neon"></div>
+                            <span>Dark Neon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio assets to be used globally -->
+    <audio id="global-click-sound" src="https://cdn.freesound.org/previews/415/415096_7413867-lq.mp3"
+        preload="auto"></audio>
+    <audio id="global-pop-sound" src="https://cdn.freesound.org/previews/242/242501_4414128-lq.mp3"
+        preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

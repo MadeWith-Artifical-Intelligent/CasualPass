@@ -1,0 +1,146 @@
+/* 
+   Shared Settings for CasualPass Platform 
+   Defines global variables based on themes.
+*/
+:root {
+    /* Global Base */
+    --cp-font: 'Outfit', sans-serif;
+    --cp-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Liquid Theme variables */
+body.theme-liquid {
+    --cp-bg: #0f111a;
+    --cp-text: #ffffff;
+    --cp-text-muted: rgba(255, 255, 255, 0.6);
+    --cp-accent: #00ffcc;
+    --cp-accent-glow: rgba(0, 255, 204, 0.5);
+
+    --cp-glass-bg: rgba(255, 255, 255, 0.05);
+    --cp-glass-border: rgba(255, 255, 255, 0.1);
+    --cp-glass-highlight: rgba(255, 255, 255, 0.2);
+    --cp-glass-base: rgba(15, 17, 26, 0.8);
+
+    /* Game Specific colors if needed globally */
+    --cp-x-color: #00ffcc;
+    --cp-o-color: #ff00cc;
+
+    background-color: var(--cp-bg);
+}
+
+/* Paper Theme variables */
+body.theme-paper {
+    --cp-bg: #f8f9fa;
+    --cp-text: #2c3e50;
+    --cp-text-muted: #7f8c8d;
+    --cp-accent: #2980b9;
+    --cp-accent-glow: rgba(41, 128, 185, 0.2);
+
+    --cp-glass-bg: #ffffff;
+    --cp-glass-border: #e0e0e0;
+    --cp-glass-highlight: #f2f2f2;
+    --cp-glass-base: #f8f9fa;
+
+    --cp-x-color: #2980b9;
+    --cp-o-color: #e74c3c;
+
+    background-color: var(--cp-bg);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+body.theme-paper .blob {
+    display: none;
+    /* Blobs not needed on paper */
+}
+
+/* Dark Neon Theme variables */
+body.theme-neon {
+    --cp-bg: #000000;
+    --cp-text: #f8fafc;
+    --cp-text-muted: #94a3b8;
+    --cp-accent: #00f2fe;
+    --cp-accent-glow: rgba(0, 242, 254, 0.6);
+
+    --cp-glass-bg: rgba(255, 255, 255, 0.05);
+    --cp-glass-border: #333333;
+    --cp-glass-highlight: rgba(0, 242, 254, 0.3);
+    --cp-glass-base: rgba(0, 0, 0, 0.9);
+
+    --cp-x-color: #00f2fe;
+    --cp-o-color: #fe00a1;
+
+    background-color: var(--cp-bg);
+}
+
+body.theme-neon .blob {
+    display: none;
+}
+
+/* Disable Effects */
+body.disable-effects * {
+    animation: none !important;
+    transition: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Liquid background animation for global use */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    animation: liquidFloat 15s infinite cubic-bezier(0.4, 0, 0.2, 1) alternate;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.blob-1 {
+    width: 50vw;
+    height: 50vw;
+    background: linear-gradient(135deg, #4158D0, #C850C0);
+    top: -10vw;
+    left: -10vw;
+}
+
+.blob-2 {
+    width: 40vw;
+    height: 40vw;
+    background: linear-gradient(135deg, #C850C0, #FFCC70);
+    bottom: -10vw;
+    right: -10vw;
+    animation-delay: -5s;
+    animation-direction: alternate-reverse;
+}
+
+.blob-3 {
+    width: 30vw;
+    height: 30vw;
+    background: linear-gradient(135deg, #4158D0, #00ffcc);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 20s;
+    filter: blur(80px);
+}
+
+@keyframes liquidFloat {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+
+    33% {
+        transform: translate(5%, 5%) scale(1.1) rotate(120deg);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    66% {
+        transform: translate(-5%, 5%) scale(0.9) rotate(240deg);
+        border-radius: 30% 70% 50% 50% / 50% 60% 40% 60%;
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1) rotate(360deg);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+}
