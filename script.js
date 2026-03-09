@@ -52,6 +52,36 @@ document.addEventListener('DOMContentLoaded', () => {
         playClickSound();
     });
 
+    // Stats Rendering
+    function renderStats() {
+        const statsGrid = document.getElementById('stats-grid');
+        if (!statsGrid) return;
+        const stats = getGameStats();
+        const games = Object.keys(stats);
+
+        if (games.length === 0) {
+            statsGrid.innerHTML = '<p class="stats-empty">Henuz oyun istatistigi yok. Oynamaya basla!</p>';
+            return;
+        }
+
+        statsGrid.innerHTML = '';
+        games.forEach(name => {
+            const g = stats[name];
+            const winRate = g.played > 0 ? Math.round((g.won / g.played) * 100) : 0;
+            const card = document.createElement('div');
+            card.className = 'stat-card';
+            card.innerHTML = `
+                <h3>${name}</h3>
+                <div class="stat-row"><span class="stat-label">Oynanan</span><span class="stat-value">${g.played}</span></div>
+                <div class="stat-row"><span class="stat-label">Kazanilan</span><span class="stat-value">${g.won}</span></div>
+                <div class="stat-row"><span class="stat-label">Kazanma %</span><span class="stat-value">${winRate}%</span></div>
+                ${g.highScore > 0 ? `<div class="stat-row"><span class="stat-label">Yuksek Skor</span><span class="stat-value" style="color:var(--cp-accent)">${g.highScore}</span></div>` : ''}
+            `;
+            statsGrid.appendChild(card);
+        });
+    }
+    renderStats();
+
     // Theme Handlers
     themeOptions.forEach(opt => {
         opt.addEventListener('click', () => {

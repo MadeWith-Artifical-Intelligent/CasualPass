@@ -208,6 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         overlay.classList.remove("hidden");
         playDieSound();
+
+        // Record stats
+        if (typeof recordGameResult === 'function') {
+            recordGameResult('Snake', { won: false, score: score });
+        }
     }
 
     // Sound Helpers

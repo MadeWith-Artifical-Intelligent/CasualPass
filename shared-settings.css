@@ -76,6 +76,72 @@ body.theme-neon .blob {
     display: none;
 }
 
+/* Retro Pixel Theme variables */
+body.theme-retro {
+    --cp-bg: #1a1c2c;
+    --cp-text: #f4f4f4;
+    --cp-text-muted: #94b0c2;
+    --cp-accent: #ffcd75;
+    --cp-accent-glow: rgba(255, 205, 117, 0.5);
+
+    --cp-glass-bg: rgba(38, 43, 68, 0.9);
+    --cp-glass-border: rgba(148, 176, 194, 0.2);
+    --cp-glass-highlight: rgba(255, 205, 117, 0.15);
+    --cp-glass-base: rgba(26, 28, 44, 0.95);
+
+    --cp-x-color: #38b764;
+    --cp-o-color: #e43b44;
+
+    background-color: var(--cp-bg);
+    background-image:
+        linear-gradient(rgba(255, 205, 117, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 205, 117, 0.03) 1px, transparent 1px);
+    background-size: 16px 16px;
+    image-rendering: pixelated;
+}
+
+body.theme-retro .blob {
+    display: none;
+}
+
+body.theme-retro * {
+    border-radius: 4px !important;
+}
+
+body.theme-retro .game-card,
+body.theme-retro .modal,
+body.theme-retro .game-container,
+body.theme-retro .config-menu,
+body.theme-retro .btn,
+body.theme-retro .preset-btn,
+body.theme-retro .score-card,
+body.theme-retro .board-wrapper {
+    border-radius: 4px !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4) !important;
+    border-width: 2px !important;
+}
+
+body.theme-retro .game-card::before,
+body.theme-retro .game-container::before {
+    display: none;
+}
+
+body.theme-retro .hero-title,
+body.theme-retro .glow-text {
+    -webkit-text-stroke: 0 !important;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5) !important;
+    background: none !important;
+    color: #ffcd75 !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+}
+
+body.theme-retro .logo span {
+    color: #ffcd75;
+}
+
 /* Disable Effects */
 body.disable-effects * {
     animation: none !important;

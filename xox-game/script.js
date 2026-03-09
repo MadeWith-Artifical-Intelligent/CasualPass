@@ -135,6 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             saveToLeaderboard(winnerName);
+
+            // Record stats
+            if (typeof recordGameResult === 'function') {
+                const isPlayer1Win = currentPlayer === 'X';
+                recordGameResult('Tic Tac Toe', { won: isPlayer1Win, score: 0 });
+            }
             return;
         }
 
@@ -144,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
             gameActive = false;
             statusDisplay.style.color = 'var(--text-primary)';
             statusDisplay.style.textShadow = 'none';
+
+            // Record draw as played
+            if (typeof recordGameResult === 'function') {
+                recordGameResult('Tic Tac Toe', { won: false, score: 0 });
+            }
             return;
         }
 

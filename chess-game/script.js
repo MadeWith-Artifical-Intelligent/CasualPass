@@ -498,6 +498,12 @@ function checkGameOver() {
         } else {
             gameOverText.textContent = 'OYUN BİTTİ';
         }
+
+        // Record stats
+        if (typeof recordGameResult === 'function') {
+            const playerWon = gameEngine.in_checkmate() && gameEngine.turn() === 'b';
+            recordGameResult('Chess', { won: playerWon, score: 0 });
+        }
     }
 }
 
@@ -524,6 +530,10 @@ function resignGame() {
     gameActive = false;
     const winner = gameEngine.turn() === 'w' ? 'Siyah (Black)' : 'Beyaz (White)';
     gameOverText.textContent = `ÇEKİLDİ! ${winner} Kazandı.`;
+
+    if (typeof recordGameResult === 'function') {
+        recordGameResult('Chess', { won: false, score: 0 });
+    }
 }
 
 // Event Listeners
