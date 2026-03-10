@@ -44,12 +44,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function makeTileEl(value, r, c, appear) {
         const el = document.createElement('div');
-        el.className = 'tile' + (appear ? ' appear' : '');
+        el.className = 'tile';
         el.dataset.value = Math.min(value, 2048);
         el.textContent   = value;
         if (value > 2048) el.classList.add('super');
+
+        // Position first, THEN animate — prevents sliding from top-left
+        if (appear) {
+            el.style.scale   = '0';
+            el.style.opacity = '0';
+        }
         positionTile(el, r, c, false);
         gridEl.appendChild(el);
+
+        if (appear) {
+            requestAnimationFrame(() => {
+                el.style.transition = 'scale 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s ease';
+                el.style.scale   = '1';
+                el.style.opacity = '1';
+            });
+        }
+
         return el;
     }
 
