@@ -49,18 +49,38 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent   = value;
         if (value > 2048) el.classList.add('super');
 
-        if (appear) {
-            el.style.scale   = '0';
-            el.style.opacity = '0';
-        }
-        positionTile(el, r, c, false);
-        gridEl.appendChild(el);
+        const sz = cellSize();
+        const x  = tileOffset(c);
+        const y  = tileOffset(r);
+        el.style.width  = sz + 'px';
+        el.style.height = sz + 'px';
 
         if (appear) {
-            void el.offsetWidth; // tarayıcıyı scale:0 durumunu render etmeye zorla
-            el.style.transition = 'scale 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.12s ease';
-            el.style.scale   = '1';
-            el.style.opacity = '1';
+            // Başlangıç: doğru konumda ama scale(0)
+            el.style.transition = 'none';
+            el.style.transform  = `translate(${x}px, ${y}px) scale(0)`;
+            el.style.opacity    = '0';
+            gridEl.appendChild(el);
+
+            // Reflow zorla — tarayıcı scale:0 halini görüp işlemeli
+            void el.offsetWidth;
+
+            // Animasyonu başlat
+            el.style.transition = `transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                                   opacity 0.12s ease`;
+            el.style.transform  = `translate(${x}px, ${y}px) scale(1)`;
+            el.style.opacity    = '1';
+
+            // Animasyon bitince transform'u normalize et (slide için)
+            setTimeout(() => {
+                if (el.isConnected) {
+                    el.style.transition = 'none';
+                    el.style.transform  = `translate(${x}px, ${y}px)`;
+                }
+            }, 240);
+        } else {
+            positionTile(el, r, c, false);
+            gridEl.appendChild(el);
         }
 
         return el;
