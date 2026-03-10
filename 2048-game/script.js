@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent   = value;
         if (value > 2048) el.classList.add('super');
 
-        // Position first, THEN animate — prevents sliding from top-left
         if (appear) {
             el.style.scale   = '0';
             el.style.opacity = '0';
@@ -58,11 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         gridEl.appendChild(el);
 
         if (appear) {
-            requestAnimationFrame(() => {
-                el.style.transition = 'scale 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s ease';
-                el.style.scale   = '1';
-                el.style.opacity = '1';
-            });
+            void el.offsetWidth; // tarayıcıyı scale:0 durumunu render etmeye zorla
+            el.style.transition = 'scale 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.12s ease';
+            el.style.scale   = '1';
+            el.style.opacity = '1';
         }
 
         return el;
