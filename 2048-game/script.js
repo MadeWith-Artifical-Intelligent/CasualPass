@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (direction === 'right') {
             for (let r = 0; r < SIZE; r++) {
-                const { result, merged } = slideRow(grid[r].reverse());
+                const { result, merged } = slideRow([...grid[r]].reverse());
                 grid[r] = result.reverse();
                 if (merged) anyMerge = true;
             }
         } else if (direction === 'up') {
             for (let c = 0; c < SIZE; c++) {
-                let col = [];
+                const col = [];
                 for (let r = 0; r < SIZE; r++) col.push(grid[r][c]);
                 const { result, merged } = slideRow(col);
                 for (let r = 0; r < SIZE; r++) grid[r][c] = result[r];
@@ -113,10 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (direction === 'down') {
             for (let c = 0; c < SIZE; c++) {
-                let col = [];
+                const col = [];
                 for (let r = 0; r < SIZE; r++) col.push(grid[r][c]);
-                col.reverse();
-                const { result, merged } = slideRow(col);
+                const { result, merged } = slideRow([...col].reverse());
                 const reversed = result.reverse();
                 for (let r = 0; r < SIZE; r++) grid[r][c] = reversed[r];
                 if (merged) anyMerge = true;
@@ -146,22 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
             render();
             addTileAnimations();
 
-            if (checkGameOver()) {
+            // 2048'e ulaşıldıysa hemen kutla (ama devam etmeye izin ver)
+            if (won && !gameOver) {
                 gameOver = true;
                 setTimeout(() => {
-                    if (won) {
-                        gameOverText.textContent = 'Tebrikler! 2048!';
-                        gameOverText.style.color = '#ffcd75';
-                    } else {
-                        gameOverText.textContent = 'Oyun Bitti!';
-                        gameOverText.style.color = '#ff3366';
-                    }
+                    gameOverText.textContent = 'Tebrikler! 2048!';
+                    gameOverText.style.color = '#ffcd75';
                     finalScoreEl.textContent = score;
                     overlay.classList.remove('hidden');
-
-                    // Record stats
                     if (typeof recordGameResult === 'function') {
-                        recordGameResult('2048', { won: won, score: score });
+                        recordGameResult('2048', { won: true, score: score });
+                    }
+                }, 300);
+            } else if (checkGameOver()) {
+                gameOver = true;
+                setTimeout(() => {
+                    gameOverText.textContent = 'Oyun Bitti!';
+                    gameOverText.style.color = '#ff3366';
+                    finalScoreEl.textContent = score;
+                    overlay.classList.remove('hidden');
+                    if (typeof recordGameResult === 'function') {
+                        recordGameResult('2048', { won: false, score: score });
                     }
                 }, 300);
             }
